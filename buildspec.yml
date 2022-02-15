@@ -23,7 +23,7 @@ phases:
     - php artisan key:generate
     - echo Building the Docker image...
     - docker build -t $IMAGE_TAG .
-    - docker tag htunn/laravel-docker-aws:latest $REPOSITORY_URI:$IMAGE_TAG
+    - docker tag htunn/laravel-docker-aws:latest $REPOSITORY_URI:$IMAGE_TAG:latest
   post_build:
     commands:
       - echo Build completed on `date`
