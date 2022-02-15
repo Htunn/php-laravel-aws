@@ -11,7 +11,7 @@ phases:
     # login to Elastic container registry
     - eval $(aws ecr get-login --region ap-southeast-1 --no-include-email | sed 's|https://||')
     - REPOSITORY_URI=272850406997.dkr.ecr.ap-southeast-1.amazonaws.com
-    - IMAGE_TAG=1.0
+    - IMAGE_TAG=htunn/laravel-docker-aws
   build:
     commands:
     - echo Build started on `date`
@@ -22,11 +22,11 @@ phases:
     - echo generating app key
     - php artisan key:generate
     - echo Building the Docker image...
-    - docker build -t $REPOSITORY_URI:latest .
-    - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+    - docker build -t htunn/laravel-docker-aws .
+    - docker tag htunn/laravel-docker-aws:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker image ls -a
-      - docker push $REPOSITORY_URI:$IMAGE_TAG 
+      - docker tag $IMAGE_TAG:latest 272850406997.dkr.ecr.ap-southeast-1.amazonaws.com/$IMAGE_TAG:latest
